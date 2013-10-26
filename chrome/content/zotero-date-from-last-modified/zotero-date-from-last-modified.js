@@ -30,8 +30,14 @@ Zotero.DateFromLastModified = {
             if (req.status == 200) {
               date = req.getResponseHeader("Last-Modified");
               if (date && date != '') {
-                item.setField('date', date);
-                item.save();
+                try {
+                  date = new Date(date);
+                  date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+                  item.setField('date', date);
+                  item.save();
+                } catch (err) {
+                  console.log('Could not set date "' + date + '": ' + err);
+                }
               }
             }
           }
