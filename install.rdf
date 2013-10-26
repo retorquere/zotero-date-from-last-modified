@@ -3,8 +3,8 @@
 	
 	<Description about="urn:mozilla:install-manifest">
 		<em:id>date-from-last-modified@iris-advies.com</em:id>
-		<em:name>Date from last modified Plugin for Zotero</em:name>
-		<em:version>0.0.2</em:version>
+		<em:name>Zotero Plugin to get date from last-modified</em:name>
+		<em:version>0.0.3</em:version>
 		<em:description>A sample plugin for Zotero</em:description>
 		<em:creator>Center for History and New Media<br/>George Mason University</em:creator>
 		<em:updateURL>https://raw.github.com/friflaj/zotero-date-from-last-modified/master/update.rdf</em:updateURL>
