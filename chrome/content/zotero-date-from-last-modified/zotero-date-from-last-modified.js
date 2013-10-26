@@ -18,6 +18,7 @@ Zotero.DateFromLastModified = {
       if (event == 'add' || event == 'modify') {
         var items = Zotero.Items.get(ids);
         var item, url, date;
+        var today = new Date();
 
         for (item of items) {
           url = item.getField('url');
@@ -32,9 +33,11 @@ Zotero.DateFromLastModified = {
               if (date && date != '') {
                 try {
                   date = new Date(date);
-                  date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-                  item.setField('date', date);
-                  item.save();
+                  if (date.year !== 'undefined' && date.getDate() != today.getDate() && date.getMonth() != today.getMonth() && date.getYear() != today.getYear()) {
+                    date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+                    item.setField('date', date);
+                    item.save();
+                  }
                 } catch (err) {
                   console.log('Could not set date "' + date + '": ' + err);
                 }
