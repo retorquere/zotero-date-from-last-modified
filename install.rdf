@@ -4,10 +4,10 @@
 	<Description about="urn:mozilla:install-manifest">
 		<em:id>date-from-last-modified@iris-advies.com</em:id>
 		<em:name>Zotero Plugin to get date from last-modified</em:name>
-		<em:version>0.0.7</em:version>
+		<em:version>0.0.8</em:version>
 		<em:description>Get date from last-modified header after fetch if date was not filled out</em:description>
 		<em:creator>Emiliano Heyns</em:creator>
-		<em:updateURL>https://raw.github.com/friflaj/zotero-date-from-last-modified/master/update.rdf</em:updateURL>
+		<em:updateURL>https://raw.github.com/ReichenHack/zotero-date-from-last-modified/master/update.rdf</em:updateURL>
 		<em:type>2</em:type> <!-- type=extension -->
 		
 		<!-- Requires Zotero -->
