@@ -1,6 +1,6 @@
 {
   "name": "zotero-date-from-last-modified",
-  "version": "0.0.1",
+  "version": "0.0.9",
   "description": "Get date from URL last-modified",
   "scripts": {
     "lint": "tslint -t stylish --project .",
