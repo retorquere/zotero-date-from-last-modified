@@ -1,7 +1,7 @@
 zotero-date-from-last-modified
 =================
 
-Install by downloading the [latest version](https://github.com/Emiliano Heyns/zotero-date-from-last-modified/releases/latest)
+Install by downloading the [latest version](https://github.com/retorquere/zotero-date-from-last-modified/releases/latest)
 
 Get date from URL last-modified
 
