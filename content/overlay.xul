@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://zotero-date-from-last-modified/skin/overlay.css" type="text/css"?>
+<!DOCTYPE window SYSTEM "chrome://zotero-date-from-last-modified/locale/zotero-date-from-last-modified.dtd">
+
+<overlay id="zotero-date-from-last-modified-overlay"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	
+	<!-- Include the main extension logic -->
+  <script src="chrome://zotero/content/include.js"/>
+  <script src="chrome://zotero-date-from-last-modified/content/DateFromLastModified.js"/>
+</overlay>

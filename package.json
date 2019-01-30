@@ -1,0 +1,42 @@
+{
+  "name": "zotero-date-from-last-modified",
+  "version": "0.0.1",
+  "description": "Get date from URL last-modified",
+  "scripts": {
+    "lint": "tslint -t stylish --project .",
+    "prebuild": "npm run lint",
+    "build": "webpack",
+    "postbuild": "zotero-plugin-zipup build zotero-date-from-last-modified",
+    "release": "zotero-plugin-release",
+    "postversion": "git push --follow-tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Emiliano Heyns/zotero-date-from-last-modified.git"
+  },
+  "author": {
+    "name": "Emiliano Heyns",
+    "email": "emiliano.heyns@iris-advies.com"
+  },
+  "bugs": {
+    "url": "https://github.com/Emiliano Heyns/zotero-date-from-last-modified/issues"
+  },
+  "homepage": "https://github.com/Emiliano Heyns/zotero-date-from-last-modified",
+  "dependencies": {
+    "circular-dependency-plugin": "^5.0.2",
+    "post-compile-webpack-plugin": "^0.1.2",
+    "rimraf": "^2.6.3",
+    "ts-loader": "^5.3.3",
+    "ts-node": "^8.0.2",
+    "tslint": "^5.12.1",
+    "typescript": "^3.2.4",
+    "webpack": "^4.29.0",
+    "webpack-cli": "^3.2.1",
+    "zotero-plugin": "0.0.72"
+  },
+  "xpi": {
+    "name": "Zotero Date From Last Modified",
+    "updateLink": "https://github.com/Emiliano Heyns/zotero-date-from-last-modified/releases/download/v{version}/zotero-auto-index-{version}.xpi",
+    "releaseURL": "https://github.com/Emiliano Heyns/zotero-date-from-last-modified/releases/download/release/"
+  }
+}
