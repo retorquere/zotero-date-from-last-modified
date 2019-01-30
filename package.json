@@ -12,16 +12,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:Emiliano Heyns/zotero-date-from-last-modified.git"
+    "url": "https://github.com/retorquere/zotero-date-from-last-modified.git"
   },
   "author": {
     "name": "Emiliano Heyns",
     "email": "emiliano.heyns@iris-advies.com"
   },
   "bugs": {
-    "url": "https://github.com/Emiliano Heyns/zotero-date-from-last-modified/issues"
+    "url": "https://github.com/retorquere/zotero-date-from-last-modified/issues"
   },
-  "homepage": "https://github.com/Emiliano Heyns/zotero-date-from-last-modified",
+  "homepage": "https://github.com/retorquere/zotero-date-from-last-modified",
   "dependencies": {
     "circular-dependency-plugin": "^5.0.2",
     "post-compile-webpack-plugin": "^0.1.2",
@@ -36,7 +36,7 @@
   },
   "xpi": {
     "name": "Zotero Date From Last Modified",
-    "updateLink": "https://github.com/Emiliano Heyns/zotero-date-from-last-modified/releases/download/v{version}/zotero-auto-index-{version}.xpi",
-    "releaseURL": "https://github.com/Emiliano Heyns/zotero-date-from-last-modified/releases/download/release/"
+    "updateLink": "https://github.com/retorquere/zotero-date-from-last-modified/releases/download/v{version}/zotero-auto-index-{version}.xpi",
+    "releaseURL": "https://github.com/retorquere/zotero-date-from-last-modified/releases/download/release/"
   }
 }
