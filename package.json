@@ -27,7 +27,7 @@
     "post-compile-webpack-plugin": "^0.1.2",
     "rimraf": "^2.6.3",
     "ts-loader": "^5.3.3",
-    "ts-node": "^8.0.2",
+    "ts-node": "^8.7.0",
     "tslint": "^5.12.1",
     "typescript": "^3.2.4",
     "webpack": "^4.29.0",
