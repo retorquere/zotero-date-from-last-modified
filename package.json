@@ -8,7 +8,9 @@
     "build": "webpack",
     "postbuild": "zotero-plugin-zipup build zotero-date-from-last-modified",
     "release": "zotero-plugin-release",
-    "postversion": "git push --follow-tags"
+    "postversion": "git push --follow-tags",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -32,11 +34,13 @@
     "typescript": "^3.2.4",
     "webpack": "^4.29.0",
     "webpack-cli": "^3.2.1",
-    "zotero-plugin": "0.0.72"
+    "zotero-plugin": "0.0.72",
+    "snyk": "^1.316.1"
   },
   "xpi": {
     "name": "Zotero Date From Last Modified",
     "updateLink": "https://github.com/retorquere/zotero-date-from-last-modified/releases/download/v{version}/zotero-auto-index-{version}.xpi",
     "releaseURL": "https://github.com/retorquere/zotero-date-from-last-modified/releases/download/release/"
-  }
+  },
+  "snyk": true
 }
