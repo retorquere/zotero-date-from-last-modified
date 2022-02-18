@@ -1,19 +1,10 @@
 declare const Zotero: any
-declare const Components: any
 
-const marker = 'DateFromLastModifiedMonkeyPatched'
-
-function patch(object, method, patcher) {
-  if (object[method][marker]) return
-  object[method] = patcher(object[method])
-  object[method][marker] = true
-}
-
-export let DateFromLastModified = Zotero.DateFromLastModified || new class { // tslint:disable-line:variable-name
-  private initialized: boolean = false
+export const DateFromLastModified = Zotero.DateFromLastModified || new class { // tslint:disable-line:variable-name
+  private initialized = false
 
   constructor() {
-    window.addEventListener('load', event => {
+    window.addEventListener('load', _event => {
       // Register the callback in Zotero as an item observer
       const notifierID = Zotero.Notifier.registerObserver(this, ['item'])
 
@@ -26,18 +17,20 @@ export let DateFromLastModified = Zotero.DateFromLastModified || new class { // 
   }
 
   public notify(event, type, ids, extraData) {
-    this.notifyAsync(event, type, ids, extraData).catch(err => Zotero.logError(err))
+    this.notifyAsync(event, type, ids, extraData).catch((err: Error) => {
+      Zotero.logError(err)
+    })
   }
 
-  private formatDate(date) {
-    if (!date) return ''
+  private formatDate(date: Date) {
+    if (!(date instanceof Date) || isNaN(date)) return ''
     const year = date.getFullYear()
     if (typeof year === 'undefined') return ''
 
-    return `${year}-${date.getMonth() + 1}-${date.getDate()}`
+    return `${year}-${(date.getMonth()) + 1}-${date.getDate()}`
   }
 
-  private async notifyAsync(event, type, ids, extraData) {
+  private async notifyAsync(event, type, ids, _extraData) {
     if (event !== 'add' && event !== 'modify') return
 
     const items = await Zotero.Items.getAsync(ids)
@@ -49,13 +42,14 @@ export let DateFromLastModified = Zotero.DateFromLastModified || new class { // 
       if (!url || date) continue
 
       try {
-        const xhr = await Zotero.HTTP.request('GET', url)
-        const lastModified = this.formatDate(xhr.getResponseHeader('Last-Modified'))
+        const xhr: XMLHttpRequest = await Zotero.HTTP.request('GET', url)
+        const lastModified = this.formatDate(new Date(xhr.getResponseHeader('Last-Modified')))
         if (lastModified && lastModified !== today) {
           item.setField('date', lastModified)
           await item.saveTx()
         }
-      } catch (err) {
+      }
+      catch (err) {
         Zotero.logError(err)
       }
     }

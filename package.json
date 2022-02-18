@@ -3,12 +3,13 @@
   "version": "0.0.12",
   "description": "Get date from URL last-modified",
   "scripts": {
-    "lint": "tslint -t stylish --project .",
+    "lint": "eslint . --ext .ts --cache --cache-location .eslintcache/",
     "prebuild": "npm run lint",
-    "build": "webpack",
+    "build": "node esbuild.js",
     "postbuild": "zotero-plugin-zipup build zotero-date-from-last-modified",
     "release": "zotero-plugin-release",
-    "postversion": "git push --follow-tags"
+    "postversion": "git push --follow-tags",
+    "start": "zotero-start"
   },
   "repository": {
     "type": "git",
@@ -22,17 +23,21 @@
     "url": "https://github.com/retorquere/zotero-date-from-last-modified/issues"
   },
   "homepage": "https://github.com/retorquere/zotero-date-from-last-modified",
-  "dependencies": {
-    "circular-dependency-plugin": "^5.0.2",
-    "post-compile-webpack-plugin": "^0.1.2",
-    "rimraf": "^2.6.3",
-    "ts-loader": "^5.3.3",
-    "ts-node": "^8.0.2",
-    "tslint": "^5.12.1",
-    "typescript": "^3.2.4",
-    "webpack": "^4.29.0",
-    "webpack-cli": "^3.2.1",
-    "zotero-plugin": "0.0.72"
+  "devDependencies": {
+      "@types/mocha": "^9.1.0",
+    "@types/node": "^17.0.17",
+    "@typescript-eslint/eslint-plugin": "^5.11.0",
+    "@typescript-eslint/parser": "^5.11.0",
+    "esbuild": "^0.14.21",
+    "eslint": "^8.8.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jsdoc": "^37.8.2",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
+    "mkdirp": "^1.0.4",
+    "rimraf": "^3.0.2",
+    "ts-node": "^10.5.0",
+    "typescript": "^4.5.5",
+    "zotero-plugin": "^1.0.64"
   },
   "xpi": {
     "name": "Zotero Date From Last Modified",

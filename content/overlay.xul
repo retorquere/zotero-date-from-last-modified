@@ -6,6 +6,5 @@
 	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 	
 	<!-- Include the main extension logic -->
-  <script src="chrome://zotero/content/include.js"/>
-  <script src="chrome://zotero-date-from-last-modified/content/DateFromLastModified.js"/>
+  <script src="chrome://zotero-date-from-last-modified/content/zotero-date-from-last-modified.js"/>
 </overlay>
