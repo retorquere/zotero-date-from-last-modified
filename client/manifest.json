@@ -1,0 +1,14 @@
+{
+  "manifest_version": 2,
+  "name": "Get date from URL last-modified",
+  "version": "0.0.1",
+  "description": "Get date from URL last-modified",
+  "applications": {
+    "zotero": {
+      "id": "date-from-last-modified@iris-advies.com",
+      "update_url": "https://github.com/retorquere/zotero-date-from-last-modified/releases/download/release/update.rdf",
+      "strict_min_version": "6.999",
+      "strict_max_version": "7.0.*"
+    }
+  }
+}

@@ -1,5 +1,0 @@
-content	zotero-date-from-last-modified				content/
-locale	zotero-date-from-last-modified	en-US		locale/en-US/
-skin	zotero-date-from-last-modified	default		skin/
-
-overlay	chrome://zotero/content/zoteroPane.xul	chrome://zotero-date-from-last-modified/content/overlay.xul
