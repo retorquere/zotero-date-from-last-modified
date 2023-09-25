@@ -22,8 +22,6 @@ Zotero.DateFromLastModified = new class {
   }
 
   async update(id: number) {
-    await Zotero.Promise.delay(500)
-
     const item = await Zotero.Items.getAsync(id)
     await item.loadAllData()
 
@@ -39,7 +37,7 @@ Zotero.DateFromLastModified = new class {
     this.log(`lastModified=${lastModified}`)
 
     const today = this.formatDate(new Date())
-    if (lastModified && lastModified !== today // && lastModified !== '1970-1-1') {
+    if (lastModified && lastModified !== today && lastModified !== '1970-1-1') {
       item.setField('date', lastModified)
       this.log(`setting ${item.itemID} ${lastModified}`)
       await item.saveTx()
