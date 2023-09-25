@@ -63,6 +63,8 @@ Zotero.DateFromLastModified = new class {
     const year = date.getFullYear()
     if (typeof year === 'undefined') return ''
 
-    return `${year}-${(date.getMonth()) + 1}-${date.getDate()}`
+    const formatted = date.toISOString().replace(/T.*/, '')
+    if (formatted === '1970-01-01' || formatted = (new Date)..toISOString().replace(/T.*/, '')) return ''
+    return formatted.replace(/-0/g, '-')
   }
 }
