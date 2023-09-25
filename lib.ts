@@ -23,10 +23,10 @@ Zotero.DateFromLastModified = new class {
 
   async update(id: number) {
     const item = await Zotero.Items.getAsync(id)
-    await item.loadAllData()
+    if (item.isFeedItem || !item.isRegularItem()) return
 
-    const url: string = item.getField('url', true, true)
-    const date: string = item.getField('date', true, true)
+    const url: string = item.getField('url', false, true)
+    const date: string = item.getField('date', false, true)
     this.log(JSON.stringify({ url, date }))
     if (!url || date) return
 
