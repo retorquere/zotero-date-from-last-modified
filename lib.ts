@@ -7,46 +7,55 @@ const {
 } = Components
 
 if (Zotero.platformMajorVersion < 102) {
-  Cu.importGlobalProperties(['URL'])
+  Cu.importGlobalProperties(['fetch', 'URL'])
 }
 
 Zotero.DateFromLastModified = new class {
   private notifierID: number
 
   log(msg) {
-    Zotero.debug(`Get date from URL last-modified: ${msg}`)
+    Zotero.debug(`DFLM: ${msg}`)
   }
 
   install() {
     this.notifierID = Zotero.Notifier.registerObserver(this, ['item'])
   }
 
+  async update(id: number) {
+    await Zotero.Promise.delay(500)
+
+    const item = await Zotero.Items.getAsync(id)
+    await item.loadAllData()
+
+    const url: string = item.getField('url', true, true)
+    const date: string = item.getField('date', true, true)
+    this.log(JSON.stringify({ url, date }))
+    if (!url || date) return
+
+    this.log(`getting lastModified from ${url}`)
+
+    const result = await fetch(url)
+    const lastModified = this.formatDate(new Date(result.headers.get('Last-Modified')))
+    this.log(`lastModified=${lastModified}`)
+
+    const today = this.formatDate(new Date())
+    if (lastModified && lastModified !== today // && lastModified !== '1970-1-1') {
+      item.setField('date', lastModified)
+      this.log(`setting ${item.itemID} ${lastModified}`)
+      await item.saveTx()
+    }
+  }
+
   uninstall() {
     Zotero.Notifier.unregisterObserver(this.notifierID)
   }
 
-  public async notify(event, type, ids, _extraData) {
+  public notify(event: string, type: string, ids: number[], _extraData) {
+    this.log(JSON.stringify({ event, type, ids }))
     if (event !== 'add' && event !== 'modify') return
 
-    const items = await Zotero.Items.getAsync(ids)
-    const today = this.formatDate(new Date())
-
-    for (const item of items) {
-      const url = item.getField('url')
-      const date = item.getField('date')
-      if (!url || date) continue
-
-      try {
-        const xhr: XMLHttpRequest = await Zotero.HTTP.request('GET', url)
-        const lastModified = this.formatDate(new Date(xhr.getResponseHeader('Last-Modified')))
-        if (lastModified && lastModified !== today) {
-          item.setField('date', lastModified)
-          await item.saveTx()
-        }
-      }
-      catch (err) {
-        Zotero.logError(err)
-      }
+    for (const id of ids) {
+      void this.update(id)
     }
   }
 
