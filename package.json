@@ -1,6 +1,6 @@
 {
   "name": "date-from-last-modified",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Get date from URL last-modified",
   "scripts": {
     "lint": "eslint . --ext .ts --cache --cache-location .eslintcache/",
