@@ -64,7 +64,7 @@ Zotero.DateFromLastModified = new class {
     if (typeof year === 'undefined') return ''
 
     const formatted = date.toISOString().replace(/T.*/, '')
-    if (formatted === '1970-01-01' || formatted = (new Date)..toISOString().replace(/T.*/, '')) return ''
+    if (formatted === '1970-01-01' || formatted === (new Date).toISOString().replace(/T.*/, '')) return ''
     return formatted.replace(/-0/g, '-')
   }
 }
