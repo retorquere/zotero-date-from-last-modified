@@ -7,12 +7,15 @@ If the date field is not filled, and the URL field is, fill the date from URL la
 
 # Selective date-filling
 
-You can specify which item types get empty dates filled by this plugin by adding a comma-separated list of item types in the
-hidden preference `extensions.zotero.date-from-last-modified.itemtypes`. You get to the hidden preferences by selecting the
-Advanced pane of the Zotero preferences and click "Config Editor".
-Enter "date-from-last-modified" into the Filter field at the top
-of the list that comes up. Please don't change any of the other
-hidden preferences. It's easy to break stuff here.
+You can specify which item types get empty dates filled by this
+plugin by adding a comma-separated list of item types in the hidden
+preference `extensions.zotero.date-from-last-modified.itemtypes`.
+If it's empty, all item types are used. You get to the hidden
+preferences by selecting the Advanced pane of the Zotero preferences
+and click "Config Editor".  Enter "date-from-last-modified" into
+the Filter field at the top of the list that comes up. Please don't
+change any of the other hidden preferences. It's easy to break stuff
+here.
 
 The item types Zotero knows about are:
 
