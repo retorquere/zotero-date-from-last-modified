@@ -18,7 +18,6 @@ The item types Zotero knows about are:
 
 - annotation
 - artwork
-- attachment
 - audioRecording
 - bill
 - blogPost
