@@ -25,6 +25,9 @@ Zotero.DateFromLastModified = new class {
     const item = await Zotero.Items.getAsync(id)
     if (item.isFeedItem || !item.isRegularItem()) return
 
+    const types = (Zotero.Prefs.get('date-from-last-modified.itemtypes') || '').trim().toLowerCase().split(/\s*,\s*/)
+    if (types.length && !types.includes(Zotero.ItemTypes.getName(item.itemTypID))) return
+
     const url: string = item.getField('url', false, true)
     const date: string = item.getField('date', false, true)
     this.log(JSON.stringify({ url, date }))

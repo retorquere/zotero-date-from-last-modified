@@ -97,7 +97,7 @@ function setDefaultPrefs(rootURI) {
       }
     },
   }
-  Services.scriptloader.loadSubScript(`${rootURI  }prefs.js`, obj)
+  Services.scriptloader.loadSubScript(`${rootURI}prefs.js`, obj)
 }
 
 
