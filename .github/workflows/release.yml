@@ -11,7 +11,7 @@ jobs:
     - name: install node
       uses: actions/setup-node@v1
       with:
-        node-version: 19.x
+        node-version: 20.x
     - name: Cache node dependencies
       uses: actions/cache@v2
       env:
@@ -31,4 +31,4 @@ jobs:
     - name: release
       run: npm run release
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ github.token }}
