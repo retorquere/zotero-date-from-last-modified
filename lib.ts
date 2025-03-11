@@ -13,8 +13,12 @@ if (Zotero.platformMajorVersion < 102) {
 Zotero.DateFromLastModified = new class {
   private notifierID: number
 
+  constructor() {
+    this.log('starting up')
+  }
+
   log(msg) {
-    Zotero.debug(`Get date from URL last-modified: ${msg}`)
+    Zotero.debug(`last-modified: ${JSON.stringify(msg)}`)
   }
 
   install() {
@@ -26,6 +30,7 @@ Zotero.DateFromLastModified = new class {
   }
 
   public async notify(event, type, ids, _extraData) {
+    this.log({event, type, ids})
     if (event !== 'add' && event !== 'modify') return
 
     const items = await Zotero.Items.getAsync(ids)

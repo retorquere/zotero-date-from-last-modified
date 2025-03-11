@@ -8,7 +8,8 @@
     "build": "tsc --noEmit && node esbuild.js",
     "postbuild": "zotero-plugin-zipup build date-from-last-modified",
     "release": "zotero-plugin-release",
-    "postversion": "git push --follow-tags"
+    "postversion": "git push --follow-tags",
+    "start": "zotero-start"
   },
   "repository": {
     "type": "git",
