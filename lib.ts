@@ -7,7 +7,7 @@ const {
 } = Components
 
 if (Zotero.platformMajorVersion < 102) {
-  Cu.importGlobalProperties(['URL'])
+  Cu.importGlobalProperties(['fetch', 'URL'])
 }
 
 Zotero.DateFromLastModified = new class {
@@ -25,33 +25,42 @@ Zotero.DateFromLastModified = new class {
     this.notifierID = Zotero.Notifier.registerObserver(this, ['item'])
   }
 
+  async update(id: number) {
+    const item = await Zotero.Items.getAsync(id)
+    if (item.isFeedItem || !item.isRegularItem()) return
+
+    const types = (Zotero.Prefs.get('date-from-last-modified.itemtypes') || '').trim().toLowerCase().split(/\s*,\s*/)
+    if (types.length && !types.includes(Zotero.ItemTypes.getName(item.itemTypID))) return
+
+    const url: string = item.getField('url', false, true)
+    const date: string = item.getField('date', false, true)
+    this.log(JSON.stringify({ url, date }))
+    if (!url || date) return
+
+    this.log(`getting lastModified from ${url}`)
+
+    const result = await fetch(url)
+    const lastModified = this.formatDate(new Date(result.headers.get('Last-Modified')))
+    this.log(`lastModified=${lastModified}`)
+
+    const today = this.formatDate(new Date())
+    if (lastModified && lastModified !== today && lastModified !== '1970-1-1') {
+      item.setField('date', lastModified)
+      this.log(`setting ${item.itemID} ${lastModified}`)
+      await item.saveTx()
+    }
+  }
+
   uninstall() {
     Zotero.Notifier.unregisterObserver(this.notifierID)
   }
 
-  public async notify(event, type, ids, _extraData) {
-    this.log({event, type, ids})
+  public notify(event: string, type: string, ids: number[], _extraData) {
+    this.log(JSON.stringify({ event, type, ids }))
     if (event !== 'add' && event !== 'modify') return
 
-    const items = await Zotero.Items.getAsync(ids)
-    const today = this.formatDate(new Date())
-
-    for (const item of items) {
-      const url = item.getField('url')
-      const date = item.getField('date')
-      if (!url || date) continue
-
-      try {
-        const xhr: XMLHttpRequest = await Zotero.HTTP.request('GET', url)
-        const lastModified = this.formatDate(new Date(xhr.getResponseHeader('Last-Modified')))
-        if (lastModified && lastModified !== today) {
-          item.setField('date', lastModified)
-          await item.saveTx()
-        }
-      }
-      catch (err) {
-        Zotero.logError(err)
-      }
+    for (const id of ids) {
+      void this.update(id)
     }
   }
 
@@ -61,6 +70,8 @@ Zotero.DateFromLastModified = new class {
     const year = date.getFullYear()
     if (typeof year === 'undefined') return ''
 
-    return `${year}-${(date.getMonth()) + 1}-${date.getDate()}`
+    const formatted = date.toISOString().replace(/T.*/, '')
+    if (formatted === '1970-01-01' || formatted === (new Date).toISOString().replace(/T.*/, '')) return ''
+    return formatted.replace(/-0/g, '-')
   }
 }

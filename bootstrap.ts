@@ -20,7 +20,13 @@ if (typeof Zotero == 'undefined') {
 }
 
 function log(msg) {
-  Zotero.debug(`Get date from URL last-modified: ${  msg}`)
+  msg = `bDFLM: ${msg}`
+  if (typeof Zotero === 'undefined') {
+    dump(`${msg}\n`)
+  }
+  else {
+    Zotero.debug(msg)
+  }
 }
 
 // In Zotero 6, bootstrap methods are called before Zotero is initialized, and using include.js
@@ -91,7 +97,7 @@ function setDefaultPrefs(rootURI) {
       }
     },
   }
-  Services.scriptloader.loadSubScript(`${rootURI  }prefs.js`, obj)
+  Services.scriptloader.loadSubScript(`${rootURI}prefs.js`, obj)
 }
 
 
@@ -104,8 +110,15 @@ export async function install() {
 export async function startup({ id, version, resourceURI, rootURI = resourceURI.spec }) {
   await waitForZotero()
 
-  Services.scriptloader.loadSubScript(`${rootURI  }lib.js`)
-  Zotero.DateFromLastModified.install()
+  log(`Startup: ${typeof Zotero}`)
+  try {
+    Services.scriptloader.loadSubScript(`${rootURI}lib.js`, { Zotero })
+    Zotero.DateFromLastModified.install()
+  }
+  catch (err) {
+    log(`${err}: ${err.stack}`)
+  }
+  log('started')
 }
 
 export function shutdown() {
