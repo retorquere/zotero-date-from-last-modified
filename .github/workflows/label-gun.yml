@@ -1,18 +1,28 @@
-name: 'Manage issues and nag about support logs'
-
-on:
-  issues:
-    types: [opened, edited, closed]
-  issue_comment:
-    types: [created, edited, closed]
-
 jobs:
   nag:
     runs-on: ubuntu-latest
     steps:
-      - uses: retorquere/label-gun@main
-        with:
-          token: ${{ github.token }}
-          label.exempt: question
-          no-close.message: Thanks for the feedback; there's no way you could have known, but @retorquere prefers to keep bugreports/enhancements open as a reminder to merge the changes into a new release.
-          reopen.label: reopened
+    - id: labelgun
+      uses: retorquere/label-gun@main
+      with:
+        assign: true
+        close.message: Thanks for the feedback! Just so you know, GitHub doesn't let
+          me control who can close issues, and @retorquere likes to leave bug reports
+          and enhancements open as a nudge to merge them into the next release.
+        label.awaiting: awaiting-user-feedback
+        label.canclose: question
+        label.reopened: reopened
+        token: ${{ github.token }}
+        verbose: true
+name: Manage issues and nag about support logs
+on:
+  issue_comment:
+    types:
+    - created
+    - edited
+    - closed
+  issues:
+    types:
+    - opened
+    - edited
+    - closed
