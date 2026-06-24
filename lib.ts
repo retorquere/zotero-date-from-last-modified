@@ -13,8 +13,12 @@ if (Zotero.platformMajorVersion < 102) {
 Zotero.DateFromLastModified = new class {
   private notifierID: number
 
+  constructor() {
+    this.log('starting up')
+  }
+
   log(msg) {
-    Zotero.debug(`DFLM: ${msg}`)
+    Zotero.debug(`last-modified: ${JSON.stringify(msg)}`)
   }
 
   install() {
